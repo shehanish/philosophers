@@ -6,7 +6,7 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:12:30 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/29 17:01:04 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:04:34 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <string.h>
 
 # define UNLOCK 1
 # define LOCK 0
@@ -50,6 +51,7 @@ typedef struct s_simulation
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	meals_lock;
 	pthread_mutex_t	logging_lock;
+	pthread_mutex_t	state_lock; // Added mutex for shared state
 }				t_simulation;
 
 int				ft_atoi(const char *nptr);

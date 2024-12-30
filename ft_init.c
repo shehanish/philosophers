@@ -6,28 +6,42 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:00:41 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/29 15:28:35 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:09:23 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philo.h"
 
-static int	ft_init_mutex(t_simulation *simulation)
+static int ft_init_mutex(t_simulation *simulation)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (i < simulation->num_of_philos)
-	{
-		if (pthread_mutex_init(&(simulation->forks_mutex[i]), NULL))
-			return (1);
-		i++;
-	}
-	if (pthread_mutex_init(&simulation->meals_lock, NULL))
-		return (1);
-	if (pthread_mutex_init(&simulation->logging_lock, NULL))
-		return (1);
-	return (0);
+    i = 0;
+    // Initialize forks mutexes
+    while (i < simulation->num_of_philos)
+    {
+        if (pthread_mutex_init(&(simulation->forks_mutex[i]), NULL))
+        {
+            return (1); // Return error if mutex initialization fails
+        }
+        i++;
+    }
+
+    // Initialize meals and logging mutexes
+    if (pthread_mutex_init(&simulation->meals_lock, NULL))
+    {
+        return (1);
+    }
+    if (pthread_mutex_init(&simulation->logging_lock, NULL))
+    {
+        return (1);
+    }
+    if (pthread_mutex_init(&simulation->state_lock, NULL))
+    {
+        return (1);
+    }
+
+    return (0); // Success
 }
 
 static int	ft_init_philo(t_simulation *simulation)

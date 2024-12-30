@@ -6,7 +6,7 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:59:28 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/28 19:14:01 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:04:32 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	updated_sleep(unsigned long duration, t_simulation *simulation)
 		usleep(simulation->num_of_philos * 2);
 	}
 }
+
 
 int	ft_strlen(char *str)
 {
