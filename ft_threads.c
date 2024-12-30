@@ -6,7 +6,7 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:25:58 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/30 17:06:52 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:13:33 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,22 @@ void	*ft_routine(void *args)
 {
 	t_philo			*philo;
 	t_simulation	*simulation;
+	int				should_continue;
 
 	philo = (t_philo *)args;
 	simulation = philo->simulation;
 	if (philo->index % 2 && simulation->num_of_philos > 1)
 		updated_sleep(simulation->time_to_eat / 50, simulation);
-	while (!simulation->stop_simulation && !simulation->meals_ate)
+	
+	while (1)
 	{
+		pthread_mutex_lock(&simulation->state_lock);
+		should_continue = (!simulation->stop_simulation && !simulation->meals_ate);
+		pthread_mutex_unlock(&simulation->state_lock);
+		
+		if (!should_continue)
+			break;
+			
 		ft_eating(philo);
 		philo_action_log("is sleeping", philo, UNLOCK);
 		updated_sleep(simulation->time_to_sleep, simulation);
@@ -49,7 +58,7 @@ void	ft_end_dining(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_of_philos)
 	{
-		pthread_mutex_destroy(&simulation->forks_mutex[i]);
+		//pthread_mutex_destroy(&simulation->forks_mutex[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&simulation->meals_lock);
@@ -61,6 +70,8 @@ void	ft_end_dining(t_simulation *simulation)
 		free(simulation->philos[i].index_str);
 		i++;
 	}
+	//free(simulation->philos);
+	free(simulation->forks_mutex);
 }
 
 int	ft_begin_dining(t_simulation *simulation)

@@ -6,7 +6,7 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:59:28 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/30 16:04:32 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:56:12 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,15 @@ void	updated_sleep(unsigned long duration, t_simulation *simulation)
 	unsigned long	start;
 
 	start = get_time();
-	while (!simulation->stop_simulation)
+	while (1)
 	{
+		pthread_mutex_lock(&simulation->state_lock);
+		if (simulation->stop_simulation)
+		{
+			pthread_mutex_unlock(&simulation->state_lock);
+			break ;
+		}
+		pthread_mutex_unlock(&simulation->state_lock);
 		if (get_time() - start >= duration)
 			break ;
 		usleep(simulation->num_of_philos * 2);
