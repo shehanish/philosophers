@@ -6,11 +6,11 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:59:24 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/29 20:41:51 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 21:31:24 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 static int	ft_is_valid_number(char *str)
 {
@@ -38,8 +38,9 @@ int	ft_valid_input(t_simulation *simulation, int argc, char *argv[])
 		simulation->max_meals = ft_atoi(argv[5]);
 	else
 		simulation->max_meals = -1;
-	if (simulation->num_of_philos < 1 || simulation->time_to_die < 0 || simulation->time_to_eat < 0
-		|| simulation->time_to_sleep < 0 || simulation->max_meals < -1)
+	if (simulation->num_of_philos < 1 || simulation->time_to_die < 0
+		|| simulation->time_to_eat < 0 || simulation->time_to_sleep < 0
+		|| simulation->max_meals < -1)
 		return (0);
 	return (1);
 }

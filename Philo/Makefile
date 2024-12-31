@@ -1,15 +1,16 @@
 
 NAME        := philo
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror -g -pthread -fsanitize=thread
+FLAGS    := -Wall -Wextra -Werror -g -pthread 
 SRCS        :=  ft_check_args.c\
 				ft_init.c\
-				ft_philo_routines.c\
+				ft_routines_check.c\
 				ft_threads.c\
 				main.c \
 				ft_time.c\
 				ft_utils.c\
 				ft_utils1.c\
+				ft_eat.c\
 			
                     
                           

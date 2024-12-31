@@ -6,7 +6,7 @@
 /*   By: shkaruna <shkaruna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 19:03:13 by shkaruna          #+#    #+#             */
-/*   Updated: 2024/12/28 19:04:26 by shkaruna         ###   ########.fr       */
+/*   Updated: 2024/12/30 21:21:50 by shkaruna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ft_error_msg(char *msg)
 		printf("%s", msg);
 	return (1);
 }
-
 
 int	ft_is_int(const char *str)
 {
@@ -37,10 +36,13 @@ int	ft_is_int(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 	{
-		if (number > 214748364 || (number == 214748364 && ((*str - '0' > 7 && sign == 1) || (*str - '0' > 8 && sign == -1))))
+		if (number > 214748364 || (number == 214748364 && ((*str - '0' > 7
+						&& sign == 1) || (*str - '0' > 8 && sign == -1))))
 			return (0);
 		number = number * 10 + (*str - '0');
 		str++;
 	}
+	if (*str)
+		return (0);
 	return (1);
 }
